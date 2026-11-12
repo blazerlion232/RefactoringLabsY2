@@ -36,64 +36,49 @@
 
  */
 
+    public String displayText(int Disc, String cType){
+        return cType + " customer gets discount of " + Disc;
+    }
+
+    public boolean pChecker(int purchaseAmount){
+        if(purchaseAmount > 1000){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 public class DiscountService {
 
   public double calculateDiscount(String customerType, double purchaseAmount){
 
     double discount = 0.0;
-
     if(customerType.equals("Regular")){
-
       if(purchaseAmount > 1000){
-
         discount = purchaseAmount * 0.1;
-
       }else {
-
         discount = purchaseAmount * 0.05;
-
       }
-
       System.out.println("Regular customer get discount of "+discount);
-
     }else if(customerType.equals("Premium")){
-
       if(purchaseAmount > 1000){
-
         discount = purchaseAmount * 0.2;
-
       }else {
-
         discount = purchaseAmount * 0.1;
-
       }
-
       System.out.println("Premium customer get discount of "+discount);
-
     } else if (customerType.equals("Guest")){
-
       discount = 0.0;
-
       System.out.println("Guest customer gets no discount");
-
     }
-
     return discount;
-
   }
 
-
-
   public static void main(String[] args) {
-
     DiscountService discountService = new DiscountService();
-
     discountService.calculateDiscount("Regular", 1200);
-
     discountService.calculateDiscount("Premium", 800);
-
     discountService.calculateDiscount("Guest", 500);
-
   }
 
 }
