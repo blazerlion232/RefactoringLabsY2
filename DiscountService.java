@@ -1,10 +1,6 @@
 //DiscountService.java
 
-
-
-
-
-
+import java.sql.SQLData;
 
 /**
 
@@ -36,42 +32,58 @@
 
  */
 
-    public String displayText(int Disc, String cType){
+public String displayText(double Disc, String cType){
         return cType + " customer gets discount of " + Disc;
     }
 
-    public boolean pChecker(int purchaseAmount){
-        if(purchaseAmount > 1000){
-            return true;
-        }else{
-            return false;
-        }
+public boolean pChecker(double purchaseAmount){
+    if(purchaseAmount > 1000){
+        return true;
+    }else{
+        return false;
     }
+}
+
+
+public int customerType(String customerType){
+    switch(customerType){
+        case "Premium":
+            return 0;
+        case "Regular":
+            return 1;
+        case "Guest":
+            return 2;
+    }
+}
+
+public double discountValue(String customerType, double purchaseAmount){
+
+    int tempCT = customerType(customerType);
+    boolean purchaseValue = pChecker(purchaseAmount);
+
+    if(tempCT == 0 && purchaseValue == true ){
+        return 0.2;
+    }else if(tempCT == 0 && purchaseValue == false){
+        return 0.1;
+    }
+    else if(tempCT == 1 && purchaseValue == true){
+        return 0.1;
+    }
+    else if(tempCT == 1 && purchaseValue == false){
+        return 0.05;
+    }else{
+        return 0.0;
+    }
+}
+
+    
 
 public class DiscountService {
 
   public double calculateDiscount(String customerType, double purchaseAmount){
 
-    double discount = 0.0;
-    if(customerType.equals("Regular")){
-      if(purchaseAmount > 1000){
-        discount = purchaseAmount * 0.1;
-      }else {
-        discount = purchaseAmount * 0.05;
-      }
-      System.out.println("Regular customer get discount of "+discount);
-    }else if(customerType.equals("Premium")){
-      if(purchaseAmount > 1000){
-        discount = purchaseAmount * 0.2;
-      }else {
-        discount = purchaseAmount * 0.1;
-      }
-      System.out.println("Premium customer get discount of "+discount);
-    } else if (customerType.equals("Guest")){
-      discount = 0.0;
-      System.out.println("Guest customer gets no discount");
-    }
-    return discount;
+    double disc = discountValue(customerType, purchaseAmount);
+    displayText(disc, customerType);
   }
 
   public static void main(String[] args) {
