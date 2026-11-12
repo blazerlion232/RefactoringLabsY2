@@ -1,42 +1,10 @@
 //DiscountService.java
 
-import java.sql.SQLData;
-
-/**
-
- * This class has some CODE SMELLS like
-
- * a) long method
-
- * b) duplicated logic in nested if blocks
-
- * c) String literals scattered
-
- * @TODO - mandatory:
-
- * refactor step by step <strong>without having to change the main method</strong>
-
- * a) use EXTRACT METHOD to separate
-
- * (i) calculating discount for regular customers
-
- * (ii) calculating discount for premium customers
-
- * b) Introduce constants or an enum for customer types instead of string literals
-
- * @TODO - Extensions:
-
- * a) Extract printing logic into a separate method to reduce duplication
-
- * b) Write a test class
-
- */
-
 public class DiscountService {
 
 
-public void displayText(double Disc, String cType){
-        System.out.println(cType + " customer gets discount of " + Disc);
+public void displayText(double Disc, String cType, double amountSaved){
+        System.out.println(cType + " customer gets discount of " + Disc+ " coming to a total of " + amountSaved+ " saved.");
     }
 
 public boolean pChecker(double purchaseAmount){
@@ -81,12 +49,17 @@ public double discountValue(String customerType, double purchaseAmount){
     }
 }
 
+public double amountSaved1(double disc, double purchaseAmount){
+    double amountSaved = purchaseAmount * disc;
+    return amountSaved;
+}
     
 
   public void calculateDiscount(String customerType, double purchaseAmount){
 
     double disc = discountValue(customerType, purchaseAmount);
-    displayText(disc, customerType);
+    double amountSaved2 = amountSaved1(disc, purchaseAmount);
+    displayText(disc, customerType, amountSaved2);
   }
 
   public static void main(String[] args) {
