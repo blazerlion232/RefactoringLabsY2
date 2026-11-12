@@ -32,8 +32,11 @@ import java.sql.SQLData;
 
  */
 
-public String displayText(double Disc, String cType){
-        return cType + " customer gets discount of " + Disc;
+public class DiscountService {
+
+
+public void displayText(double Disc, String cType){
+        System.out.println(cType + " customer gets discount of " + Disc);
     }
 
 public boolean pChecker(double purchaseAmount){
@@ -44,7 +47,6 @@ public boolean pChecker(double purchaseAmount){
     }
 }
 
-
 public int customerType(String customerType){
     switch(customerType){
         case "Premium":
@@ -54,6 +56,7 @@ public int customerType(String customerType){
         case "Guest":
             return 2;
     }
+    return 10;
 }
 
 public double discountValue(String customerType, double purchaseAmount){
@@ -71,6 +74,8 @@ public double discountValue(String customerType, double purchaseAmount){
     }
     else if(tempCT == 1 && purchaseValue == false){
         return 0.05;
+    }else if(tempCT == 10){
+        throw new IllegalArgumentException("strange customer type");
     }else{
         return 0.0;
     }
@@ -78,9 +83,7 @@ public double discountValue(String customerType, double purchaseAmount){
 
     
 
-public class DiscountService {
-
-  public double calculateDiscount(String customerType, double purchaseAmount){
+  public void calculateDiscount(String customerType, double purchaseAmount){
 
     double disc = discountValue(customerType, purchaseAmount);
     displayText(disc, customerType);
